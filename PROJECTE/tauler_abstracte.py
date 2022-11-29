@@ -31,9 +31,10 @@ X = pygame.image.load("IMATGES/X.png")
 # FONTS DE LLETRES 
 main_font = pygame.font.SysFont("cambria", 50)
 
-'''
+#--------------------------------------------------------------
 ##Paleta de colors
-#blanco = (255, 255, 255)
+
+blanco = (255, 255, 255)
 negro = (0, 0, 0)
 rojo = (255, 0, 0)
 azul = (0, 0, 255)
@@ -41,7 +42,7 @@ verde = (0, 255, 0)
 
 color_1 = (237, 246, 116)
 color_2 = (116, 233, 246)
-'''
+
 
 #-------------------------------------------------------------
 #BOTO
@@ -99,12 +100,11 @@ def main_menu():
         ## Titol
         screen.blit(fons_titol, (0, 0))
 
-
         #BOTONS
         ##PLAY
         PLAY = pygame.image.load("IMATGES/PLAY.png")
         quadre_play = pygame.transform.scale(PLAY, (300, 100))
-        MENU_PLAY_BUTTON = Button(image=quadre_play, pos=(640, 250), text_input="PLAY", font=main_font, base_color=(255,255,255), hovering_color=(0,0,0))
+        MENU_PLAY_BUTTON = Button(image=quadre_play, pos=(640, 250), text_input="PLAY", font=main_font, base_color=(blanco), hovering_color=(negro))
 
         for button in [MENU_PLAY_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
