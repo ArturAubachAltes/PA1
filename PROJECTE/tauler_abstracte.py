@@ -398,7 +398,10 @@ def game():
 
                 if (pos_x_inicial_TABLERO < ratX < pos_x_inicial_TABLERO+allargada_TABLERO) and (pos_y_inicial_TABLERO < ratY < pos_y_inicial_TABLERO+altura_TABLERO):
 
+                    #Quina fila ha clicat
                     valor_clic_files = int((-pos_x_inicial_TABLERO+ratX)// VarX_TABLERO)
+
+                    #Quina columna ha clicat
                     valor_clic_columnes = int((-pos_y_inicial_TABLERO+ratY)// VarY_TABLERO)
 
                     print(valor_clic_files)
