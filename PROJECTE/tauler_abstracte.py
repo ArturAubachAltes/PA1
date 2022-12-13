@@ -255,6 +255,9 @@ def game():
         global MODO_DE_TAULA
         global MODO_DE_JOC
 
+        #GENERAR MATRIU TABLERO
+        MATRIU = [[0] * MODO_DE_TAULA for i in range(MODO_DE_TAULA)]
+        
         #DETECTAR OPSICCIO DE RATOLI
         GAME_MOUSE_POS = pygame.mouse.get_pos()
 
@@ -327,6 +330,14 @@ def game():
             pygame.draw.line(screen, line_color, (pos_x_inicial_L_H,
                                                   pos_y_inicial_L_MODIF), (pos_x_final_L_H, pos_y_inicial_L_MODIF), line_grux)
 
+        #Marcar tablero
+        def Marcar_On_Qui(row, col, player):
+            MATRIU[row][col] = player
+        
+        #Marcar_On_Qui(0,0,1)
+        #print(MATRIU)
+
+        
         #DIBUIXAR X i O
         M_3X3 = [[1, 0, 2], [1, 1, 2], [0, 0, 1]]
         M_4X4 = [[1, 1, 2, 2], [2, 2, 2, 2], [1, 1, 1, 1], [1, 0, 0, 0]]
@@ -340,7 +351,7 @@ def game():
 
         Num_fila = 0
 
-        for i in M_4X4:
+        for i in M_3X3:
             CORDENADES_X_per_peca_MOD = pos_x_inicial_TABLERO+VarX_TABLERO*Num_fila
             Num_column = 0
 
@@ -381,12 +392,19 @@ def game():
                 sys.exit()
             ### AL CLCAR
             if event.type == pygame.MOUSEBUTTONDOWN:
-                '''
-                # Si has clicat a play
-                if MENU_PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    # Canviar de pantalla a play
-                    play()
-                '''
+
+                ratX = event.pos[0] #cordenada X al clicar
+                ratY = event.pos[1] #cordenades Y al clicar
+
+                if (pos_x_inicial_TABLERO < ratX < pos_x_inicial_TABLERO+allargada_TABLERO) and (pos_y_inicial_TABLERO < ratY < pos_y_inicial_TABLERO+altura_TABLERO):
+
+                    valor_clic_files = int((-pos_x_inicial_TABLERO+ratX)// VarX_TABLERO)
+                    valor_clic_columnes = int((-pos_y_inicial_TABLERO+ratY)// VarY_TABLERO)
+
+                    print(valor_clic_files)
+                    print(valor_clic_columnes)
+
+                
 
         # FPS
         temps.tick(FPS)
