@@ -28,12 +28,17 @@ pygame.display.set_icon(icono)
 O = pygame.image.load("IMATGES/O.png")
 X = pygame.image.load("IMATGES/X.png")
 
-# FONTS DE LLETRES 
+# FONTS DE LLETRES
 main_font = pygame.font.SysFont("cambria", 50)
 
+#Temany taula predeterminat
+MODO_DE_TAULA = 3
+
+#Modo de joc predeterminat
+MODO_DE_JOC = 3
 '''
-#Paleta de colors
-blanco = (255, 255, 255)
+##Paleta de colors
+#blanco = (255, 255, 255)
 negro = (0, 0, 0)
 rojo = (255, 0, 0)
 azul = (0, 0, 255)
@@ -45,6 +50,7 @@ color_2 = (116, 233, 246)
 
 #-------------------------------------------------------------
 #BOTO
+
 
 class Button():
 	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
@@ -79,10 +85,13 @@ class Button():
 #-------------------------------------------------------------
 #MAIN MENU (retocar boto play)
 
+
 ## Fons de pantalla TITOL
 fons_titol = pygame.image.load("IMATGES/FONS_TITOL.png")
 
 ## PANTALLA DEL "MAIN MENU"
+
+
 def main_menu():
     # Nom del "MAIN MENU" (nom del joc)
     pygame.display.set_caption("3 in the line baby")
@@ -99,19 +108,19 @@ def main_menu():
         ## Titol
         screen.blit(fons_titol, (0, 0))
 
-
         #BOTONS
         ##PLAY
         PLAY = pygame.image.load("IMATGES/PLAY.png")
         quadre_play = pygame.transform.scale(PLAY, (300, 100))
-        MENU_PLAY_BUTTON = Button(image=quadre_play, pos=(640, 250), text_input="PLAY", font=main_font, base_color=(255,255,255), hovering_color=(0,0,0))
+        MENU_PLAY_BUTTON = Button(image=quadre_play, pos=(
+            640, 250), text_input="PLAY", font=main_font, base_color=(255, 255, 255), hovering_color=(0, 0, 0))
 
         for button in [MENU_PLAY_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(screen)
         # EVENTOS QUE PODEN PASSAR DINS DE MAIN MENU
         ## Registra tots els "eventos" que passa a la pantalla
-        for event in pygame.event.get():  
+        for event in pygame.event.get():
             ### Sortir al clicar la X
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -123,23 +132,27 @@ def main_menu():
                     # Canviar de pantalla a play
                     play()
 
-
         # FPS
         temps.tick(FPS)
 
         # Actualitzar (repetir comando de adalt)
-        pygame.display.update() 
+        pygame.display.update()
 
 #-------------------------------------------------------------
 #PLAY (tot)
 
 ## PANTALLA DEL "PLAY"
+
+
 def play():
-    # Nom de la finestra "PLAY" 
+    # Nom de la finestra "PLAY"
     pygame.display.set_caption("Play")
 
     #BUCLE GENERAL
     while True:
+
+        global MODO_DE_TAULA
+        global MODO_DE_JOC
 
         #DETECTAR OPSICCIO DE RATOLI
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
@@ -148,14 +161,37 @@ def play():
         ## Fons de pantalla GENERAL
         screen.blit(fons, (0, 0))
 
+        ## Temany taula
+        TEXT_TAULA = main_font.render(
+            str(MODO_DE_TAULA), True, (255, 255, 255))
+        screen.blit(TEXT_TAULA, (100, 0))
+
+        ## Modo de joc en pantalla
+        TEXT_MODO = main_font.render(str(MODO_DE_JOC), True, (255, 255, 255))
+        screen.blit(TEXT_MODO, (30, 0))
+
         #BOTONS
         ##PLAY
         PLAY_2 = pygame.image.load("IMATGES/PLAY_2.png")
         quadre_play2 = pygame.transform.scale(PLAY_2, (300, 100))
         MENU_PLAY2_BUTTON = Button(image=quadre_play2, pos=(
             640, 250), text_input="PLAY2", font=main_font, base_color=(255, 255, 255), hovering_color=(0, 0, 0))
-    
-        for button in [MENU_PLAY2_BUTTON]:
+
+        ##
+        TAULA_MENYS = Button(image=None, pos=(300, 40),
+                             text_input="<", font=main_font, base_color="White", hovering_color="Green")
+
+        TAULA_MES = Button(image=None, pos=(200, 100),
+                           text_input=">", font=main_font, base_color="White", hovering_color="Green")
+
+        MODO_MENYS = Button(image=None, pos=(300, 60),
+                            text_input="<", font=main_font, base_color="White", hovering_color="Green")
+
+        MODO_MES = Button(image=None, pos=(200, 60),
+                          text_input=">", font=main_font, base_color="White", hovering_color="Green")
+
+        ##gEENERAL
+        for button in [MENU_PLAY2_BUTTON, TAULA_MENYS, TAULA_MES, MODO_MENYS, MODO_MES]:
             button.changeColor(PLAY_MOUSE_POS)
             button.update(screen)
 
@@ -167,16 +203,33 @@ def play():
                 pygame.quit()
                 sys.exit()
                 ### AL CLCAR
-        
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Si has clicat a play
                 if MENU_PLAY2_BUTTON.checkForInput(PLAY_MOUSE_POS):
+                    if MODO_DE_JOC > MODO_DE_TAULA:
+                        print("error")
                     # Canviar de pantalla a play
-                    game()
-        
+                    else:
+                        game()
+
+                if TAULA_MENYS.checkForInput(PLAY_MOUSE_POS):
+                    if MODO_DE_TAULA > 3:
+                        MODO_DE_TAULA -= 1
+
+                if TAULA_MES.checkForInput(PLAY_MOUSE_POS):
+                    if 12 > MODO_DE_TAULA:
+                        MODO_DE_TAULA += 1
+
+                if MODO_MENYS.checkForInput(PLAY_MOUSE_POS):
+                    if MODO_DE_JOC > 2:
+                        MODO_DE_JOC -= 1
+
+                if MODO_MES.checkForInput(PLAY_MOUSE_POS):
+                    if 12 > MODO_DE_JOC:
+                        MODO_DE_JOC += 1
         #FPS
         temps.tick(FPS)
-
 
         # Actualitzar (repetir comando de adalt)
         pygame.display.update()
@@ -193,6 +246,8 @@ def game():
 
     #BUCLE GENERAL
     while True:
+        global MODO_DE_TAULA
+        global MODO_DE_JOC
 
         #DETECTAR OPSICCIO DE RATOLI
         GAME_MOUSE_POS = pygame.mouse.get_pos()
@@ -240,17 +295,16 @@ def game():
 
         ###
         #QUADRICULA
-        MODO_DE_JOC = 10
         line_color = (0, 0, 0)
         line_grux = 2
 
         ##LINIES VERTICALS
-        VarX_TABLERO = allargada_TABLERO/MODO_DE_JOC
+        VarX_TABLERO = allargada_TABLERO/MODO_DE_TAULA
         pos_y_inicial_L_V = pos_y_inicial_TABLERO
 
         pos_y_final_L_V = pos_y_inicial_TABLERO+altura_TABLERO
 
-        for i in range(MODO_DE_JOC-1):
+        for i in range(MODO_DE_TAULA-1):
             pos_x_inicial_L_MODIF = pos_x_inicial_TABLERO+VarX_TABLERO*(i+1)
             pygame.draw.line(screen, line_color, (pos_x_inicial_L_MODIF,
                                                   pos_y_inicial_L_V), (pos_x_inicial_L_MODIF, pos_y_final_L_V), line_grux)
@@ -262,7 +316,7 @@ def game():
 
         pos_x_final_L_H = pos_x_inicial_TABLERO+allargada_TABLERO
 
-        for i in range(MODO_DE_JOC-1):
+        for i in range(MODO_DE_TAULA-1):
             pos_y_inicial_L_MODIF = pos_y_inicial_TABLERO+VarY_TABLERO*(i+1)
             pygame.draw.line(screen, line_color, (pos_x_inicial_L_H,
                                                   pos_y_inicial_L_MODIF), (pos_x_final_L_H, pos_y_inicial_L_MODIF), line_grux)
@@ -280,7 +334,6 @@ def game():
 
         Num_fila = 0
 
-        M_4X4 = [[1, 1, 2, 2], [2, 2, 2, 2], [1, 1, 1, 1], [1, 0, 0, 0]]
         for i in M_4X4:
             CORDENADES_X_per_peca_MOD = pos_x_inicial_TABLERO+VarX_TABLERO*Num_fila
             Num_column = 0
