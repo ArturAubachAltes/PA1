@@ -32,8 +32,8 @@ X = pygame.image.load("IMATGES/X.png")
 main_font = pygame.font.SysFont("cambria", 50)
 
 '''
-##Paleta de colors
-#blanco = (255, 255, 255)
+#Paleta de colors
+blanco = (255, 255, 255)
 negro = (0, 0, 0)
 rojo = (255, 0, 0)
 azul = (0, 0, 255)
@@ -240,9 +240,9 @@ def game():
 
         ###
         #QUADRICULA
-        MODO_DE_JOC = 20
+        MODO_DE_JOC = 10
         line_color = (0, 0, 0)
-        line_grux = 7
+        line_grux = 2
 
         ##LINIES VERTICALS
         VarX_TABLERO = allargada_TABLERO/MODO_DE_JOC
