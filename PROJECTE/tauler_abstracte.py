@@ -30,12 +30,15 @@ X = pygame.image.load("IMATGES/X.png")
 
 # FONTS DE LLETRES
 main_font = pygame.font.SysFont("cambria", 50)
+main_font2 = pygame.font.SysFont("cambria", 20)
 
 #Temany taula predeterminat
 MODO_DE_TAULA = 3
 
 #Modo de joc predeterminat
 MODO_DE_JOC = 3
+
+
 '''
 ##Paleta de colors
 #blanco = (255, 255, 255)
@@ -158,37 +161,40 @@ def play():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
         # "IMATGES" PANTALLA
+        ## Assersion
+        ERROR = main_font2.render("Tipos de joc > Tauler de joc " , True, (155, 155, 155))
+
+
         ## Fons de pantalla GENERAL
         screen.blit(fons, (0, 0))
 
         ## Temany taula
-        TEXT_TAULA = main_font.render(
-            str(MODO_DE_TAULA), True, (255, 255, 255))
-        screen.blit(TEXT_TAULA, (100, 0))
+        TEXT_TAULA = main_font2.render("Tauler de joc:  " + str(MODO_DE_TAULA), True, (0, 0, 0))
+        screen.blit(TEXT_TAULA, (100, 100))
 
         ## Modo de joc en pantalla
-        TEXT_MODO = main_font.render(str(MODO_DE_JOC), True, (255, 255, 255))
-        screen.blit(TEXT_MODO, (30, 0))
+        TEXT_MODO = main_font2.render("Tipos de joc:  " + str(MODO_DE_JOC), True, (255, 255, 255))
+        screen.blit(TEXT_MODO, (500, 100))
 
         #BOTONS
         ##PLAY
         PLAY_2 = pygame.image.load("IMATGES/PLAY_2.png")
         quadre_play2 = pygame.transform.scale(PLAY_2, (300, 100))
         MENU_PLAY2_BUTTON = Button(image=quadre_play2, pos=(
-            640, 250), text_input="PLAY2", font=main_font, base_color=(255, 255, 255), hovering_color=(0, 0, 0))
+            640, 250), text_input="PLAY2", font=main_font2, base_color=(255, 255, 255), hovering_color=(0, 0, 0))
 
         ##
-        TAULA_MENYS = Button(image=None, pos=(300, 40),
-                             text_input="<", font=main_font, base_color="White", hovering_color="Green")
+        TAULA_MENYS = Button(image=None, pos=(80, 110),
+                             text_input="<", font=main_font2, base_color="White", hovering_color="Green")
 
-        TAULA_MES = Button(image=None, pos=(200, 100),
-                           text_input=">", font=main_font, base_color="White", hovering_color="Green")
+        TAULA_MES = Button(image=None, pos=(270, 110),
+                           text_input=">", font=main_font2, base_color="White", hovering_color="Green")
 
-        MODO_MENYS = Button(image=None, pos=(300, 60),
-                            text_input="<", font=main_font, base_color="White", hovering_color="Green")
+        MODO_MENYS = Button(image=None, pos=(460, 110),
+                            text_input="<", font=main_font2, base_color="White", hovering_color="Green")
 
-        MODO_MES = Button(image=None, pos=(200, 60),
-                          text_input=">", font=main_font, base_color="White", hovering_color="Green")
+        MODO_MES = Button(image=None, pos=(660, 110),
+                          text_input=">", font=main_font2, base_color="White", hovering_color="Green")
 
         ##gEENERAL
         for button in [MENU_PLAY2_BUTTON, TAULA_MENYS, TAULA_MES, MODO_MENYS, MODO_MES]:
