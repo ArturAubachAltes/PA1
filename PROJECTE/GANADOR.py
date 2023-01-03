@@ -30,7 +30,7 @@ def ganador(M,mode):
 					contadordiagn += 1
 					if contadordiagn == mode:
 						return jugador
-						
+	return 0				
 						
 print(ganador(M,mode))
 					
