@@ -35,4 +35,4 @@ def condicio_de_victoria(M,mode_de_joc):
                 contador_total = max(contador_total,contador_individual)
     return contador_total
 
-condicio_de_victoria(M,mode_de_joc)
+print(condicio_de_victoria(M,mode_de_joc))
